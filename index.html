@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Impacto de IA na Justiça | Xertica.ai</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts ATUALIZADAS (Poppins e Roboto) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -17,19 +17,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" xintegrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibVocXFl+enL3ZeaNgGiDRUg3iGlrzkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
+        /* Variáveis de cor ATUALIZADAS para o Dark Mode */
         :root {
-            --brand-primary: #00C0FF;
-            --brand-accent: #FF00F3;
-            --text-strong: #1E1E1E;
-            --text-muted: #393232;
+            --brand-primary: #00BEFF; /* Primary 50 */
+            --brand-accent: #C0FF7D; /* Green 50 (novo accent) */
+            --brand-primary-dark: #047EA9; /* Primary 100 (para PNG) */
+            --text-strong: #FFFFFF; /* Texto forte (branco) */
+            --text-muted: #94a3b8; /* Texto suave (slate-400) */
             --text-light: #F0F0F0;
-            --bg-page: #ffffff;
-            --bg-soft: #F6F8FA;
-            --bg-hero: #F9F8FF;
-            --bg-dark: #121212;
-            --stroke: #E6E8EB;
-            --font-heading: 'Space Mono', monospace;
+            --bg-page: #1E293B; /* Fundo do card (slate-800) */
+            --bg-soft: rgba(51, 65, 85, 0.5); /* Fundo suave (slate-700/50) */
+            --bg-hero: #0F172A; /* Cor de fundo da página (slate-900) */
+            --bg-dark: #0F172A;
+            --stroke: rgba(51, 65, 85, 0.5); /* Borda (slate-700/50) */
+            
+            /* Fontes ATUALIZADAS */
+            --font-heading: 'Poppins', sans-serif;
             --font-body: 'Roboto', sans-serif;
+            
             --space-xs: clamp(0.5rem, 1vw, 0.75rem);
             --space-sm: clamp(1rem, 2vw, 1.25rem);
             --space-md: clamp(1.5rem, 3vw, 2rem);
@@ -46,14 +51,15 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
+        /* Estilo do BODY ATUALIZADO com fundo dark mode */
         body {
             font-family: var(--font-body);
-            background-color: var(--bg-hero);
-            background-image: 
-                radial-gradient(circle at 100% 0%, rgba(255, 0, 243, 0.1), transparent 40%),
-                radial-gradient(circle at 0% 100%, rgba(0, 192, 255, 0.1), transparent 40%),
-                repeating-linear-gradient(rgba(240, 238, 252, 0.5) 0, rgba(240, 238, 252, 0.5) 1px, transparent 1px, transparent 50px),
-                repeating-linear-gradient(to right, rgba(240, 238, 252, 0.5) 0, rgba(240, 238, 252, 0.5) 1px, transparent 1px, transparent 50px);
+            background-color: var(--bg-hero); /* Fallback */
+            background-image: url('https://i.imgur.com/dULOC88.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: var(--text-muted);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
@@ -70,12 +76,20 @@
             padding: var(--space-md) var(--space-md) var(--space-xl) var(--space-md);
         }
 
+        /* Títulos ATUALIZADOS (sem uppercase) */
         h1, h2, h3, h4 {
             font-family: var(--font-heading);
-            color: var(--text-strong);
+            color: var(--text-strong); /* Mantido para h2, h3, h4 */
             font-weight: 700;
-            text-transform: uppercase;
         }
+        /* Cor branca específica para o H1 do card */
+        .calculator-card h1 {
+            color: white; /* Garante que o H1 do card seja branco */
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            line-height: 1.2;
+            margin-bottom: var(--space-xs);
+        }
+
 
         .container { width: 100%; max-width: var(--container-width); margin: 0 auto; }
         
@@ -99,20 +113,24 @@
             transform: translateY(3px); /* MODIFICADO: Usando transform para ajuste fino */
         } 
 
+        /* Estilo do CARD ATUALIZADO (com borda de gradiente) */
         .calculator-card {
             background-color: var(--bg-page);
             border-radius: var(--border-radius-md);
             padding: var(--space-lg);
-            border: 1px solid var(--stroke);
-            box-shadow: var(--shadow-lg);
             text-align: center;
+            
+            /* Novo estilo de borda */
+            border: 2px solid transparent;
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            background-image: 
+                linear-gradient(to right, var(--bg-page), var(--bg-page)), /* Fundo (slate-800) */
+                linear-gradient(135deg, var(--brand-primary), var(--brand-accent)); /* Borda (Blue-to-Green) */
+
+            box-shadow: 0 0 15px rgba(0, 190, 255, 0.1); /* Efeito "Glow" sutil */
         }
 
-        .calculator-card h1 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            line-height: 1.2;
-            margin-bottom: var(--space-xs);
-        }
 
         .calculator-card .subtitle {
             font-size: clamp(1rem, 1.5vw, 1.1rem);
@@ -123,7 +141,6 @@
         .form-title {
             font-family: var(--font-heading);
             font-size: 1rem;
-            text-transform: uppercase;
             color: var(--text-muted);
             margin-bottom: var(--space-lg);
         }
@@ -143,7 +160,9 @@
             font-size: 0.9rem;
             display: block;
             margin-bottom: var(--space-xs);
+            color: var(--text-strong); /* Cor do label atualizada */
         }
+        /* Estilo dos INPUTS ATUALIZADO (dark mode) */
         .input-group input {
             width: 100%;
             padding: 0.8rem 1rem;
@@ -151,32 +170,51 @@
             border: 2px solid var(--stroke);
             font-size: 1rem;
             transition: border-color var(--transition-fast);
+            background-color: var(--bg-dark); /* Fundo escuro */
+            color: var(--text-strong); /* Texto branco */
+        }
+        .input-group input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.5;
         }
         .input-group input:focus {
             outline: none;
             border-color: var(--brand-primary);
         }
 
+        /* Legenda para premissas */
+        .premissas-legend {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 5px;
+        }
+        .premissas-legend span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            flex-basis: 50%;
+            text-align: center;
+        }
+
+
+        /* Estilo do BOTÃO ATUALIZADO (sólido, sem uppercase) */
         .btn-calculate {
             display: inline-block;
             padding: 1rem 2.5rem;
             font-family: var(--font-heading);
             font-weight: 700;
             font-size: clamp(0.9rem, 1.2vw, 1rem);
-            text-transform: uppercase;
-            border-radius: 50px;
+            border-radius: var(--border-radius-sm); /* Raio do botão atualizado */
             text-decoration: none;
             color: white;
-            background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
-            background-size: 200% auto;
+            background: var(--brand-primary); /* Fundo sólido */
             border: none;
             transition: all var(--transition-fast);
             cursor: pointer;
         }
         .btn-calculate:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 192, 255, 0.5);
-            background-position: right center;
+            /* Efeito de hover ATUALIZADO */
+            filter: brightness(1.1);
         }
 
         #results-section {
@@ -195,6 +233,7 @@
             gap: var(--space-md);
         }
         
+        /* Estilo do BOTÃO EXPORTAR ATUALIZADO */
         .btn-export {
             display: flex;
             align-items: center;
@@ -204,15 +243,15 @@
             font-weight: 700;
             font-size: 0.9rem;
             border-radius: 50px;
-            border: 1px solid var(--stroke);
-            background-color: var(--bg-soft);
-            color: var(--text-muted);
+            border: 1px solid var(--brand-primary);
+            background-color: transparent;
+            color: var(--brand-primary);
             cursor: pointer;
             transition: all var(--transition-fast);
         }
         .btn-export:hover {
-            background-color: var(--stroke);
-            color: var(--text-strong);
+            background-color: rgba(0, 190, 255, 0.1);
+            color: var(--brand-primary);
         }
         
         .results-grid {
@@ -227,13 +266,13 @@
             padding: var(--space-md);
             border-radius: var(--border-radius-sm);
         }
+        /* Gradiente do texto do resultado ATUALIZADO */
         .result-item .value {
             font-family: var(--font-heading);
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             line-height: 1;
             font-weight: 700;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, var(--brand-accent), var(--brand-primary));
+            background: linear-gradient(90deg, var(--brand-accent), var(--brand-primary)); /* Green-to-Blue */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -243,6 +282,7 @@
             text-transform: uppercase;
             display: block;
             margin-bottom: var(--space-xs);
+            color: var(--text-muted); /* Cor atualizada */
         }
         .result-item .description {
             font-size: 0.85rem;
@@ -263,10 +303,10 @@
         .capacity-table th, .capacity-table td {
             padding: var(--space-md);
         }
+        /* Header da tabela ATUALIZADO (gradiente e sem uppercase) */
         .capacity-table thead tr {
-            background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent)); /* Blue-to-Green */
             color: white;
-            text-transform: uppercase;
             font-family: var(--font-heading);
             font-size: 0.9rem;
         }
@@ -281,6 +321,7 @@
             color: var(--brand-primary);
         }
 
+        /* --- NOVA SEÇÃO DE REGRAS (REINTRODUZIDA) --- */
         .rules-container {
             margin-top: var(--space-xl);
             text-align: center;
@@ -315,8 +356,17 @@
             max-height: 2000px; /* Adjust if content is longer */
             padding: var(--space-md);
         }
-        #rules-content h4 { font-size: 1rem; margin-top: var(--space-md); margin-bottom: var(--space-xs); color: var(--text-strong); text-transform: uppercase; }
+        #rules-content h4 { font-size: 1rem; margin-top: var(--space-md); margin-bottom: var(--space-xs); color: var(--text-strong); }
         #rules-content ul { list-style-position: inside; padding-left: 0; }
+        /* Estilo para links nas fontes */
+        #rules-content a {
+            color: var(--brand-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        #rules-content a:hover {
+            text-decoration: underline;
+        }
         
         .rules-header-flex { 
             display: flex;
@@ -325,13 +375,13 @@
             gap: var(--space-md);
             flex-wrap: wrap;
         }
-
+        
         .disclaimer-text { 
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: var(--space-md);
+            margin-top: var(--space-xl);
             border-top: 1px solid var(--stroke);
-            padding-top: var(--space-md);
+            padding-top: var(--space-xl);
             text-align: left;
             line-height: 1.5;
         }
@@ -340,7 +390,7 @@
              padding: var(--space-sm) 0; /* Espaçamento vertical reduzido */
              text-align: center;
              font-size: 0.9rem;
-             color: var(--text-muted);
+             color: #64748b; /* Cor do footer ATUALIZADA (slate-500) */
              margin-top: auto; /* Empurra rodapé para baixo */
              
              /* MODIFICADO: Adicionado flex para centralização vertical perfeita */
@@ -349,11 +399,11 @@
              align-items: center;
         }
         .site-footer p {
-            line-height: 1; /* Garante que o texto não tenha espaçamento de linha extra */
-            margin: 0; /* NOVO: Garante que não há margem */
+             line-height: 1; /* Garante que o texto não tenha espaçamento de linha extra */
+             margin: 0; /* NOVO: Garante que não há margem */
         }
 
-        /* Styles for Image rendering element */
+        /* Styles for Image rendering element (NÃO MODIFICAR - Mantém o fundo branco para exportação) */
         #render-container {
             position: absolute;
             left: -9999px; /* Position off-screen */
@@ -367,52 +417,123 @@
 
     <header class="site-header">
         <div class="header-container">
-            <a href="#" class="logo"><img src="https://cdn.prod.website-files.com/653ff55cffa885d43e1a7bfa/6672e8383dbaa6bd3e8e527c_logo-xerticaAi.png" alt="Logo Xertica.ai"></a>
+            <!-- LOGO ATUALIZADO PARA VERSÃO BRANCA -->
+            <a href="#" class="logo"><img src="https://storage.googleapis.com/etp-bucket/Logos%20Xertica.ai%20%28.png%29/xertica.ai/Copy%20of%20Logo_XERTICA_white.png" alt="Logo Xertica.ai"></a>
         </div>
     </header>
 
     <main>
         <div class="container">
             <div class="calculator-card">
+                <!-- TÍTULOS SEM UPPERCASE -->
                 <h1>Calcule o Potencial de Economia de Horas na Justiça com IA</h1>
                 <p class="subtitle">Insira os volumes mensais de tarefas da sua equipe para quantificar o ganho de eficiência e a economia de tempo que a Inteligência Artificial pode gerar.</p>
 
                 <div id="calculator-inputs">
-                     <div class="input-grid" style="gap: var(--space-md);">
-                        <div class="input-group">
-                            <label for="client_name">Nome do Cliente</label>
-                            <input type="text" id="client_name" placeholder="Ex: João Silva">
+                         <div class="input-grid" style="gap: var(--space-md);">
+                            <div class="input-group">
+                                <label for="client_name">Nome do Cliente</label>
+                                <input type="text" id="client_name" placeholder="Ex: João Silva">
+                            </div>
+                            <div class="input-group">
+                                <label for="client_company">Órgão / Empresa do Cliente</label>
+                                <input type="text" id="client_company" placeholder="Ex: TJSP">
+                            </div>
+                             <div class="input-group">
+                                <label for="seller_name">Consultor Xertica.ai</label>
+                                <input type="text" id="seller_name" placeholder="Seu nome">
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <label for="client_company">Órgão / Empresa do Cliente</label>
-                            <input type="text" id="client_company" placeholder="Ex: TJSP">
-                        </div>
-                         <div class="input-group">
-                            <label for="seller_name">Consultor Xertica.ai</label>
-                            <input type="text" id="seller_name" placeholder="Seu nome">
-                        </div>
-                    </div>
 
-                    <h2 class="form-title">Volume Mensal de Tarefas</h2>
-                    <div class="input-grid">
-                        <div class="input-group">
-                            <label for="transcricoes">Horas de vídeos para transcrição por mês</label>
-                            <input type="number" id="transcricoes" placeholder="Ex: 50" min="0">
+                        <h2 class="form-title">Volume Mensal de Tarefas</h2>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="transcricoes">Horas de vídeos para transcrição por mês</label>
+                                <input type="number" id="transcricoes" placeholder="Ex: 50" min="0">
+                            </div>
+                            <!-- ***** CAMPO DE DOCUMENTOS ATUALIZADO PARA PÁGINAS ***** -->
+                            <div class="input-group">
+                                <label for="paginas">Total de páginas elaboradas por mês</label>
+                                <input type="number" id="paginas" placeholder="Ex: 2000" min="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="pesquisas">Pesquisas de jurisprudência por mês</label>
+                                <input type="number" id="pesquisas" placeholder="Ex: 100" min="0">
+                            </div>
+                             <div class="input-group">
+                                <label for="atendimentos">Atendimentos ao cidadão por mês</label>
+                                <input type="number" id="atendimentos" placeholder="Ex: 1000" min="0">
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <label for="documentos">Documentos elaborados por mês</label>
-                            <input type="number" id="documentos" placeholder="Ex: 200" min="0">
-                        </div>
-                        <div class="input-group">
-                            <label for="pesquisas">Pesquisas de jurisprudência por mês</label>
-                            <input type="number" id="pesquisas" placeholder="Ex: 100" min="0">
-                        </div>
-                         <div class="input-group">
-                            <label for="atendimentos">Atendimentos ao cidadão por mês</label>
-                            <input type="number" id="atendimentos" placeholder="Ex: 1000" min="0">
-                        </div>
-                    </div>
-                    <button id="calculate-btn" class="btn-calculate">Gerar Relatório de Impacto</button>
+
+                        <!-- ***** NOVA SEÇÃO DE PREMISSAS ***** -->
+                        <h2 class="form-title" style="margin-top: var(--space-xl);">Premissas de Cálculo (Editável)</h2>
+                        <p class="subtitle" style="font-size: 1rem; margin-bottom: var(--space-lg); max-width: 100%; text-align: left;">
+                            Ajuste os tempos médios (em minutos) e as constantes de trabalho para refinar a simulação.
+                        </p>
+                        
+                        <div id="premissas-container">
+                            <div class="input-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md);">
+                                
+                                <div class="input-group">
+                                    <label>Transcrição (Minutos)</label>
+                                    <div class="premissas-legend">
+                                        <span>Manual</span>
+                                        <span>IA</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <input type="number" id="manual_transcricao" value="240" title="Tempo Manual">
+                                        <input type="number" id="ia_transcricao" value="6" title="Tempo com IA">
+                                    </div>
+                                </div>
+                                <!-- ***** CAMPO DE PREMISSA ATUALIZADO PARA PÁGINAS ***** -->
+                                <div class="input-group">
+                                    <label>Elaboração por Página (Minutos)</label>
+                                    <div class="premissas-legend">
+                                        <span>Manual</span>
+                                        <span>IA</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <input type="number" id="manual_pagina" value="12" title="Tempo Manual">
+                                        <input type="number" id="ia_pagina" value="3" title="Tempo com IA">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Pesquisas (Minutos)</label>
+                                    <div class="premissas-legend">
+                                        <span>Manual</span>
+                                        <span>IA</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <input type="number" id="manual_pesquisa" value="60" title="Tempo Manual">
+                                        <input type="number" id="ia_pesquisa" value="3" title="Tempo com IA">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Atendimentos (Minutos)</label>
+                                    <div class="premissas-legend">
+                                        <span>Manual</span>
+                                        <span>IA</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <input type="number" id="manual_atendimento" value="15" title="Tempo Manual">
+                                        <input type="number" id="ia_atendimento" value="0" title="Tempo com IA">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Dias Úteis / Ano</label>
+                                    <input type="number" id="dias_uteis_ano" value="252">
+                                </div>
+                                <div class="input-group">
+                                    <label>Horas de Trabalho / Dia</label>
+                                    <input type="number" id="horas_dia" value="8">
+                                </div>
+
+                            </div> <!-- Fim do input-grid das premissas -->
+                        </div> <!-- Fim do premissas-container -->
+
+                        <!-- BOTÃO SEM UPPERCASE -->
+                        <button id="calculate-btn" class="btn-calculate" style="margin-top: var(--space-lg);">Gerar Relatório de Impacto</button>
                 </div>
 
                 <div id="results-section">
@@ -465,10 +586,11 @@
                                 <td id="table-transcricoes-atual">0</td>
                                 <td id="table-transcricoes-nova" class="new-capacity">0</td>
                             </tr>
+                            <!-- ***** LINHA DA TABELA ATUALIZADA PARA PÁGINAS ***** -->
                             <tr>
-                                <td>Elaboração de Documentos</td>
-                                <td id="table-documentos-atual">0</td>
-                                <td id="table-documentos-nova" class="new-capacity">0</td>
+                                <td>Elaboração de Páginas</td>
+                                <td id="table-paginas-atual">0</td>
+                                <td id="table-paginas-nova" class="new-capacity">0</td>
                             </tr>
                             <tr>
                                 <td>Pesquisa de Jurisprudência</td>
@@ -476,7 +598,7 @@
                                 <td id="table-pesquisas-nova" class="new-capacity">0</td>
                             </tr>
                             <tr>
-                                G<td>Atendimento ao Cidadão</td>
+                                <td>Atendimento ao Cidadão</td>
                                 <td id="table-atendimentos-atual">0</td>
                                 <td id="table-atendimentos-nova" class="new-capacity">∞</td>
                             </tr>
@@ -485,10 +607,11 @@
 
                 </div>
 
+                <!-- ***** SEÇÃO DE REGRAS REINTRODUZIDA ***** -->
                  <div class="rules-container">
                     <div class="rules-header-flex"> 
                         <button id="rules-toggle">
-                            <span>Ver regras de cálculo</span>
+                            <span>VER REGRAS DE CÁLCULO</span>
                             <span class="material-symbols-outlined">expand_more</span>
                         </button>
                         
@@ -498,21 +621,32 @@
                         </button>
                     </div> 
                     <div id="rules-content">
+                        <!-- TEXTO ATUALIZADO PARA REFLETIR PREMISSAS EDITÁVEIS -->
                         <h4>1. PREMISSAS E CONSTANTES INTERNAS</h4>
-                        <p>Os cálculos são baseados em médias de mercado e na eficiência das ferramentas Xertica.ai.</p>
+                        <p>Os cálculos são baseados nas médias de mercado e na eficiência das ferramentas Xertica.ai, conforme definido nos campos da seção "Premissas de Cálculo".</p>
                         <ul>
-                            <li><b>TEMPOS MANUAIS (POR UNIDADE):</b> TRANSCRIÇÃO (240 MIN), DOCUMENTO (120 MIN), PESQUISA (60 MIN), ATENDIMENTO (15 MIN).</li>
-                            <li><b>TEMPOS COM IA (POR UNIDADE):</b> TRANSCRIÇÃO (6 MIN), DOCUMENTO (5 MIN), PESQUISA (3 MIN), ATENDIMENTO (0 MIN, VIA CHATBOT).</li>
-                             <li><b>CONSTANTES DE TRABALHO:</b> 252 DIAS ÚTEIS/ANO; 168 HORAS DE TRABALHO/SERVIDOR/MÊS.</li>
+                            <li><b>TEMPOS MANUAIS (POR UNIDADE):</b> O tempo (em minutos) que sua equipe gasta hoje em cada tarefa (Ex: por hora de vídeo, por página, por pesquisa).</li>
+                            <li><b>TEMPOS COM IA (POR UNIDADE):</b> O tempo médio (em minutos) gasto para realizar a mesma tarefa com assistência da IA.</li>
+                             <li><b>CONSTANTES DE TRABALHO:</b> O total de dias úteis por ano e horas de trabalho por dia, usados para calcular o equivalente em "Servidores Realocados".</li>
                         </ul>
                         <h4>2. CÁLCULOS DOS RESULTADOS PRINCIPAIS</h4>
                         <p><b>A. TOTAL DE TEMPO GASTO:</b> SOMAMOS O TEMPO DE TODAS AS TAREFAS INSERIDAS, COMPARANDO O CENÁRIO MANUAL COM O CENÁRIO DE IA.</p>
                         <p><b>B. HORAS ECONOMIZADAS (MÊS):</b> (TEMPO MANUAL TOTAL - TEMPO COM IA TOTAL) / 60.</p>
                         <p><b>C. HORAS ECONOMIZADAS (ANO):</b> HORAS ECONOMIZADAS (MÊS) * 12.</p>
-                        <p><b>D. SERVIDORES REALOCADOS:</b> HORAS ECONOMIZADAS (ANO) / (8 HORAS/DIA * 252 DIAS/ANO). ESTE VALOR REPRESENTA O GANHO DE FORÇA DE TRABALHO PARA ATIVIDADES ESTRATÉGICAS.</p>
+                        <p><b>D. SERVIDORES REALOCADOS:</b> HORAS ECONOMIZADAS (ANO) / (HORAS DE TRABALHO / DIA * DIAS ÚTEIS / ANO). ESTE VALOR REPRESENTA O GANHO DE FORÇA DE TRABALHO.</p>
                         <p><b>E. REDUÇÃO NO TEMPO DE EXECUÇÃO (%):</b> (1 - (TEMPO COM IA TOTAL / TEMPO MANUAL TOTAL)) * 100.</p>
                         <h4>3. CÁLCULO DA TABELA "CAPACIDADE DE ATENDIMENTO"</h4>
                         <p>ESTA TABELA MOSTRA QUANTAS TAREFAS A MAIS SUA EQUIPE PODERIA FAZER NO MESMO TEMPO. PARA CADA TAREFA, A FÓRMULA É: (QTD. ATUAL * TEMPO MANUAL POR TAREFA) / TEMPO COM IA POR TAREFA.</p>
+                        
+                        <!-- Seção de Fontes Adicionada -->
+                        <h4>4. FONTES E MÉDIAS DE MERCADO (REFERÊNCIAS)</h4>
+                        <p>Os tempos manuais pré-definidos são baseados em médias da indústria para tarefas legais e administrativas:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li><strong>Transcrição (240 min):</strong> O padrão da indústria para transcrever 1 hora de áudio manualmente é de 4 a 6 horas (240-360 min). (Fonte: <a href="https://www.gmrtranscription.com/blog/transcribing-an-hour-of-audio/" target="_blank">GMR Transcription</a>)</li>
+                            <li><strong>Pesquisa (60 min):</strong> Advogados gastam em média 17% do seu dia em pesquisa. Uma pesquisa pontual de jurisprudência é estimada em 60 min. (Fonte: <a href="https://altaprorpg.com/lawyers/lawyers-spend-17-of-workday-on-legal-research/" target="_blank">Alta Pro RPG</a>)</li>
+                            <!-- FONTE ATUALIZADA (JUSBRASIL) E TEXTO PARA PÁGINAS -->
+                            <li><strong>Elaboração por Página (12 min):</strong> O tempo de elaboração de uma petição inicial pode variar de 2 a várias horas. Dividindo uma média de 120 min por um documento de 10 páginas, chegamos a 12 min/pág. (Fonte: <a href="https://www.jusbrasil.com.br/artigos/quanto-tempo-demora-para-fazer-uma-peticao-inicial/1936303358" target="_blank">Jusbrasil Artigos</a>)</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -537,27 +671,50 @@
             const calculateBtn = document.getElementById('calculate-btn');
             const resultsSection = document.getElementById('results-section');
             const savePngBtn = document.getElementById('save-png-btn');
+            
             const rulesToggle = document.getElementById('rules-toggle');
             const rulesContent = document.getElementById('rules-content');
             const saveRulesPngBtn = document.getElementById('save-rules-png-btn'); 
-
-            // Definições de tempo
-            const temposManuais = { transcricao: 240, documento: 120, pesquisa: 60, atendimento: 15 };
-            const temposIA = { transcricao: 6, documento: 5, pesquisa: 3, atendimento: 0 };
-            const diasUteisAno = 252;
-            const horasTrabalhoDia = 8;
+            
+            // Funções de formatação
+            const formatNumber = (num) => num.toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+            const formatInt = (num) => {
+                if (num === Infinity) return '∞';
+                return Math.floor(num).toLocaleString('pt-BR');
+            };
 
             calculateBtn.addEventListener('click', () => {
-                // Obter valores
+                
+                // ***** PREMISSAS ATUALIZADAS PARA 'PAGINA' *****
+                const diasUteisAno = Number(document.getElementById('dias_uteis_ano').value) || 252;
+                const horasTrabalhoDia = Number(document.getElementById('horas_dia').value) || 8;
+                
+                const temposManuais = {
+                    transcricao: Number(document.getElementById('manual_transcricao').value) || 240,
+                    pagina: Number(document.getElementById('manual_pagina').value) || 12, // Atualizado
+                    pesquisa: Number(document.getElementById('manual_pesquisa').value) || 60,
+                    atendimento: Number(document.getElementById('manual_atendimento').value) || 15
+                };
+                
+                const temposIA = {
+                    transcricao: Number(document.getElementById('ia_transcricao').value) || 6,
+                    pagina: Number(document.getElementById('ia_pagina').value) || 3, // Atualizado
+                    pesquisa: Number(document.getElementById('ia_pesquisa').value) || 3,
+                    atendimento: Number(document.getElementById('ia_atendimento').value) || 0
+                };
+                // ***** FIM DAS PREMISSAS ATUALIZADAS *****
+
+
+                // ***** INPUTS ATUALIZADOS PARA 'PAGINAS' *****
                 const qtdTranscricoes = Number(document.getElementById('transcricoes').value) || 0;
-                const qtdDocumentos = Number(document.getElementById('documentos').value) || 0;
+                const qtdPaginas = Number(document.getElementById('paginas').value) || 0; // Atualizado
                 const qtdPesquisas = Number(document.getElementById('pesquisas').value) || 0;
                 const qtdAtendimentos = Number(document.getElementById('atendimentos').value) || 0;
                 const clientCompany = document.getElementById('client_company').value;
 
-                // Calcular tempos
-                const tempoManualTotal = (qtdTranscricoes * temposManuais.transcricao) + (qtdDocumentos * temposManuais.documento) + (qtdPesquisas * temposManuais.pesquisa) + (qtdAtendimentos * temposManuais.atendimento);
-                const tempoIATotal = (qtdTranscricoes * temposIA.transcricao) + (qtdDocumentos * temposIA.documento) + (qtdPesquisas * temposIA.pesquisa) + (qtdAtendimentos * temposIA.atendimento);
+                // ***** CÁLCULOS ATUALIZADOS PARA 'PAGINA' *****
+                const tempoManualTotal = (qtdTranscricoes * temposManuais.transcricao) + (qtdPaginas * temposManuais.pagina) + (qtdPesquisas * temposManuais.pesquisa) + (qtdAtendimentos * temposManuais.atendimento);
+                const tempoIATotal = (qtdTranscricoes * temposIA.transcricao) + (qtdPaginas * temposIA.pagina) + (qtdPesquisas * temposIA.pesquisa) + (qtdAtendimentos * temposIA.atendimento);
 
                 // Calcular métricas
                 const minutosEconomizados = tempoManualTotal - tempoIATotal;
@@ -566,30 +723,26 @@
                 const servidoresRealocados = horasEconomizadasAno / (horasTrabalhoDia * diasUteisAno);
                 const reducaoTempo = tempoManualTotal > 0 ? (1 - (tempoIATotal / tempoManualTotal)) * 100 : 0;
 
-                // Calcular nova capacidade
+                // ***** NOVA CAPACIDADE ATUALIZADA PARA 'PAGINAS' *****
                 const novaCapacidade = {
                     transcricoes: temposIA.transcricao > 0 ? (qtdTranscricoes * temposManuais.transcricao) / temposIA.transcricao : Infinity,
-                    documentos: temposIA.documento > 0 ? (qtdDocumentos * temposManuais.documento) / temposIA.documento : Infinity,
+                    paginas: temposIA.pagina > 0 ? (qtdPaginas * temposManuais.pagina) / temposIA.pagina : Infinity, // Atualizado
                     pesquisas: temposIA.pesquisa > 0 ? (qtdPesquisas * temposManuais.pesquisa) / temposIA.pesquisa : Infinity,
                     atendimentos: temposIA.atendimento > 0 ? (qtdAtendimentos * temposManuais.atendimento) / temposIA.atendimento : Infinity,
                 };
                 
-                // Funções de formatação
-                const formatNumber = (num) => num.toLocaleString('pt-BR', { maximumFractionDigits: 1 });
-                const formatInt = (num) => Math.floor(num).toLocaleString('pt-BR');
-
                 // Atualizar UI - Resultados Principais
-                document.getElementById('results-title').textContent = clientCompany ? `Relatório de Impacto para ${clientCompany}`.toUpperCase() : 'Relatório de Impacto com IA'.toUpperCase();
-                document.getElementById('horas-mes').textContent = formatNumber(horasEconomizadasMes);
-                document.getElementById('horas-ano').textContent = formatNumber(horasEconomizadasAno);
-                document.getElementById('servidores').textContent = servidoresRealocados.toFixed(1).replace('.', ',');
+                document.getElementById('results-title').textContent = clientCompany ? `Relatório de Impacto para ${clientCompany}` : 'Relatório de Impacto com IA';
+                document.getElementById('horas-mes').textContent = formatInt(horasEconomizadasMes);
+                document.getElementById('horas-ano').textContent = formatInt(horasEconomizadasAno);
+                document.getElementById('servidores').textContent = formatInt(servidoresRealocados);
                 document.getElementById('reducao-tempo').textContent = `${formatInt(reducaoTempo)}%`;
                 
-                // Atualizar UI - Tabela
+                // ***** ATUALIZAÇÃO DA TABELA PARA 'PAGINAS' *****
                 document.getElementById('table-transcricoes-atual').textContent = formatInt(qtdTranscricoes);
                 document.getElementById('table-transcricoes-nova').textContent = formatInt(novaCapacidade.transcricoes);
-                document.getElementById('table-documentos-atual').textContent = formatInt(qtdDocumentos);
-                document.getElementById('table-documentos-nova').textContent = formatInt(novaCapacidade.documentos);
+                document.getElementById('table-paginas-atual').textContent = formatInt(qtdPaginas); // Atualizado
+                document.getElementById('table-paginas-nova').textContent = formatInt(novaCapacidade.paginas); // Atualizado
                 document.getElementById('table-pesquisas-atual').textContent = formatInt(qtdPesquisas);
                 document.getElementById('table-pesquisas-nova').textContent = formatInt(novaCapacidade.pesquisas);
                 document.getElementById('table-atendimentos-atual').textContent = formatInt(qtdAtendimentos);
@@ -616,22 +769,23 @@
                 const reportHTML = `
                     <div style="padding: 40px; font-family: 'Roboto', sans-serif; color: #393232; width: 8.5in; background: white;">
                          <style>
-                            h1, h2, h3 { font-family: 'Space Mono', monospace; text-transform: uppercase; color: #1E1E1E; }
-                            .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-                            .result-item { background-color: #F6F8FA; padding: 15px; border-radius: 8px; }
-                            .result-item .value { font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 700; background: linear-gradient(90deg, #FF00F3, #00C0FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-                            .result-item .label { font-size: 10px; font-weight: 700; text-transform: uppercase; }
-                            .result-item .description { font-size: 11px; color: #393232; margin-top: 5px; }
-                            .capacity-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-                            .capacity-table th, .capacity-table td { padding: 10px; border-bottom: 1px solid #E6E8EB; text-align: left;}
-                            .capacity-table thead tr { background-color: #1E1E1E; color: white; font-family: 'Space Mono', monospace; }
-                            .new-capacity { color: #00C0FF; font-weight: 700; }
+                             h1, h2, h3 { font-family: 'Poppins', sans-serif; color: #1E1E1E; }
+                             .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+                             .result-item { background-color: #F6F8FA; padding: 15px; border-radius: 8px; }
+                             .result-item .value { font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 700; color: var(--brand-primary-dark, #047EA9); } 
+                             .result-item .label { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+                             .result-item .description { font-size: 11px; color: #393232; margin-top: 5px; }
+                             .capacity-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+                             .capacity-table th, .capacity-table td { padding: 10px; border-bottom: 1px solid #E6E8EB; text-align: left;}
+                             .capacity-table thead tr { background: linear-gradient(135deg, #00BEFF, #C0FF7D); color: white; font-family: 'Poppins', sans-serif; }
+                             .new-capacity { color: var(--brand-primary-dark, #047EA9); font-weight: 700; }
                          </style>
                         <div style="text-align: center; margin-bottom: 30px;">
+                            <!-- LOGO CORRIGIDO PARA O PRETO -->
                             <img src="https://cdn.prod.website-files.com/653ff55cffa885d43e1a7bfa/6672e8383dbaa6bd3e8e527c_logo-xerticaAi.png" alt="Logo Xertica.ai" style="height: 30px;" crossorigin="anonymous">
                         </div>
                         <div style="text-align: center; border-bottom: 1px solid #E6E8EB; padding-bottom: 20px; margin-bottom: 20px;">
-                            <h1 style="font-size: 20px; margin: 0 0 8px 0;">RELATÓRIO DE IMPACTO DE IA</h1>
+                            <h1 style="font-size: 20px; margin: 0 0 8px 0;">Relatório de Impacto de IA</h1>
                             <p style="font-size: 14px; margin: 0;">Preparado para: <strong>${clientName} (${clientCompany})</strong></p>
                             <p style="font-size: 12px; margin: 4px 0 0 0;">Consultor: ${sellerName} | Data: ${reportDate}</p>
                         </div>
@@ -639,9 +793,8 @@
                             ${resultsClone.innerHTML}
                         </div>
                         
-                        <!-- Disclaimer no PNG -->
                         <div style="font-size: 10px; color: #393232; margin-top: 20px; border-top: 1px solid #E6E8EB; padding-top: 15px; text-align: left; line-height: 1.5;">
-                            <p>*Esta é uma simulação baseada no tempo médio gasto manually para a tarefa versus o tempo médio com IA, podendo variar conforme o caso de uso e a complexidade da tarefa.</p>
+                            <p>*Esta é uma simulação baseada no tempo médio gasto manualmente para a tarefa versus o tempo médio com IA, podendo variar conforme o caso de uso e a complexidade da tarefa.</p>
                         </div>
                     </div>
                 `;
@@ -665,6 +818,8 @@
                 });
             });
 
+            // ***** JAVASCRIPT DAS REGRAS REINTRODUZIDO *****
+            
             // Função para gerar HTML das Regras para PNG
             function generateRulesHTML() {
                 const rulesClone = document.getElementById('rules-content').cloneNode(true);
@@ -674,22 +829,23 @@
                 const reportHTML = `
                     <div style="padding: 40px; font-family: 'Roboto', sans-serif; color: #393232; width: 8.5in; background: white; text-align: left;">
                          <style>
-                            h4 { font-family: 'Space Mono', monospace; font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1E1E1E; text-transform: uppercase; }
-                            p { font-size: 0.9rem; line-height: 1.8; margin: 0.5rem 0; }
-                            ul { list-style-position: inside; padding-left: 0; font-size: 0.9rem; line-height: 1.8; }
-                            li { margin-bottom: 0.5rem; }
+                             h4 { font-family: 'Poppins', sans-serif; font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1E1E1E; }
+                             p { font-size: 0.9rem; line-height: 1.8; margin: 0.5rem 0; }
+                             ul { list-style-position: inside; padding-left: 0; font-size: 0.9rem; line-height: 1.8; }
+                             li { margin-bottom: 0.5rem; }
+                             a { color: var(--brand-primary-dark, #047EA9); text-decoration: none; }
                          </style>
                         <div style="text-align: center; margin-bottom: 30px;">
+                            <!-- LOGO CORRIGIDO PARA O PRETO -->
                             <img src="https://cdn.prod.website-files.com/653ff55cffa885d43e1a7bfa/6672e8383dbaa6bd3e8e527c_logo-xerticaAi.png" alt="Logo Xertica.ai" style="height: 30px;" crossorigin="anonymous">
-                            <h2 style="font-family: 'Space Mono', monospace; text-transform: uppercase; color: #1E1E1E; font-size: 20px; margin: 20px 0 0 0;">Regras de Cálculo da Simulação</h2>
+                            <h2 style="font-family: 'Poppins', sans-serif; color: #1E1E1E; font-size: 20px; margin: 20px 0 0 0;">Regras de Cálculo da Simulação</h2>
                         </div>
                         <div>
                             ${rulesClone.innerHTML}
                         </div>
-                         
-                        <!-- Disclaimer no PNG -->
+                        
                         <div style="font-size: 10px; color: #393232; margin-top: 20px; border-top: 1px solid #E6E8EB; padding-top: 15px; text-align: left; line-height: 1.5;">
-                            <p>*Esta é uma simulação baseada no tempo médio gasto manualmente para a tarefa versus o tempo médio com IA, podendo variar conforme o caso de uso e a complexidade da tarefa.</p>
+                            <p>*Esta é uma simulação baseada no tempo médio gasto manually para a tarefa versus o tempo médio com IA, podendo variar conforme o caso de uso e a complexidade da tarefa.</p>
                         </div>
                     </div>
                 `;
@@ -721,8 +877,8 @@
                 rulesToggle.querySelector('span').textContent = isVisible ? 'OCULTAR REGRAS DE CÁLCULO' : 'VER REGRAS DE CÁLCULO';
                 saveRulesPngBtn.style.display = isVisible ? 'inline-flex' : 'none'; 
             });
+
         });
     </script>
 </body>
 </html>
-
